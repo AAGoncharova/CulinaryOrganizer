@@ -23,7 +23,7 @@ public class RecipeCategory implements Serializable {
 	@ManyToMany // TODO: changed it from @ManyToOne to @ManyToMany
 	private List<Cuisine> cuisineList;
 
-	//bi-directional many-to-one association to Dietary
+	//bidirectional many-to-one association to Dietary
 	@ManyToOne
 	@JoinColumn(name="dietary_id")
 	private Dietary dietary;

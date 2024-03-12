@@ -22,12 +22,12 @@ public class RecipeIngredient implements Serializable {
 	@Column(name="unit_of_measurement")
 	private String unitOfMeasurement;
 
-	//bi-directional many-to-one association to Ingredient
+	//bidirectional many-to-one association to Ingredient
 	//@ManyToOne
 	//@PrimaryKeyJoinColumn(name="ingredient_id", referencedColumnName="id")
 	private Ingredient ingredient;
 
-	//bi-directional many-to-one association to Recipe
+	//bidirectional many-to-one association to Recipe
 	//@ManyToOne
 	//@PrimaryKeyJoinColumn(name="recipe_id", referencedColumnName="id")
 	private Recipe recipe;

@@ -20,7 +20,7 @@ public class DishType implements Serializable {
 
 	private String name;
 
-	//bi-directional many-to-one association to RecipeCategory
+	//bidirectional many-to-one association to RecipeCategory
 	@OneToMany(mappedBy="dishType")
 	private List<RecipeCategory> recipeCategories;
 

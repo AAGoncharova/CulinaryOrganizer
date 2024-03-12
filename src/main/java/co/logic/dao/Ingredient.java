@@ -25,7 +25,7 @@ public class Ingredient implements Serializable {
 
 	private String name;
 
-	//bi-directional many-to-one association to IngredientType
+	//bidirectional many-to-one association to IngredientType
 	@ManyToOne
 	@JoinColumn(name="ingredient_type_id")
 	private IngredientType ingredientType;

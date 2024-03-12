@@ -20,7 +20,7 @@ public class IngredientType implements Serializable {
 
 	private String name;
 
-	//bi-directional many-to-one association to Ingredient
+	//bidirectional many-to-one association to Ingredient
 	@OneToMany(mappedBy="ingredientType")
 	private List<Ingredient> ingredients;
 

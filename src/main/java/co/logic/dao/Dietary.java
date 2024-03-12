@@ -20,7 +20,7 @@ public class Dietary implements Serializable {
 
 	private String name;
 
-	//bi-directional many-to-one association to RecipeCategory
+	//bidirectional many-to-one association to RecipeCategory
 	@OneToMany(mappedBy="dietary")
 	private List<RecipeCategory> recipeCategories;
 
