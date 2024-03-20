@@ -20,6 +20,12 @@ public class RecipeIngredientPK implements Serializable {
 
 	public RecipeIngredientPK() {
 	}
+
+	public RecipeIngredientPK(Integer recipeId, Integer ingredientId) {
+		this.recipeId = recipeId;
+		this.ingredientId = ingredientId;
+	}
+
 	public Integer getRecipeId() {
 		return this.recipeId;
 	}

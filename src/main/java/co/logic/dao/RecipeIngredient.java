@@ -14,7 +14,7 @@ public class RecipeIngredient implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
-	private RecipeIngredientPK id;
+	private RecipeIngredientPK id = new RecipeIngredientPK();
 
 	@Column(name="ingredient_amount")
 	private Integer ingredientAmount;
@@ -22,17 +22,41 @@ public class RecipeIngredient implements Serializable {
 	@Column(name="unit_of_measurement")
 	private String unitOfMeasurement;
 
-	//bidirectional many-to-one association to Ingredient
-	//@ManyToOne
-	//@PrimaryKeyJoinColumn(name="ingredient_id", referencedColumnName="id")
-	private Ingredient ingredient;
-
 	//bidirectional many-to-one association to Recipe
-	//@ManyToOne
-	//@PrimaryKeyJoinColumn(name="recipe_id", referencedColumnName="id")
+	@ManyToOne
+	@JoinColumn(
+			name="recipe_id",
+			insertable=false, updatable=false) //avoid duplication in mapping
 	private Recipe recipe;
 
+	//bidirectional many-to-one association to Ingredient
+	@ManyToOne
+	@JoinColumn(
+			name="ingredient_id",
+			insertable=false, updatable=false) //avoid duplication in mapping
+	private Ingredient ingredient;
+
 	public RecipeIngredient() {
+	}
+
+	public RecipeIngredient(
+			Integer ingredientAmount,
+			String unitOfMeasurement,
+			Recipe recipe,
+			Ingredient ingredient) {
+
+		this.ingredientAmount = ingredientAmount;
+		this.unitOfMeasurement = unitOfMeasurement;
+		this.recipe = recipe;
+		this.ingredient = ingredient;
+
+		//set id values since Recipe and Ingredient should be already persisted
+		this.id.setRecipeId(recipe.getId());
+		this.id.setIngredientId(ingredient.getId());
+
+		//guarantee referential integrity since bi-directional
+		recipe.getRecipeIngredients().add(this);
+		ingredient.getRecipeIngredients().add(this);
 	}
 
 	public RecipeIngredientPK getId() {

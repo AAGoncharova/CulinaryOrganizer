@@ -3,7 +3,10 @@ package co.logic.dao;
 import java.io.Serializable;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -11,21 +14,34 @@ import java.util.List;
  * 
  */
 @Entity
-@Table(name="cuisine", schema="culinary_organizer")
+@Table(name="cuisine")
 public class Cuisine implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@SequenceGenerator(name="culinary_organizer.cuisine_id_seq",
+			sequenceName="culinary_organizer.cuisine_id_seq",
+			allocationSize=1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE,
+			generator="culinary_organizer.cuisine_id_seq")
 	private Integer id;
 
 	private String name; // I write it here once: @Column is not necessary here because the property is already persisted by default for @Entity
 
-	//bi-directional many-to-one association to RecipeCategory
-	@OneToMany(mappedBy="cuisineList")
-	private List<RecipeCategory> recipeCategories;
+	//bi-directional many-to-many association to recipe_cuisine join table
+	@ManyToMany(cascade = CascadeType.PERSIST)
+	@JoinTable(
+			name = "recipe_cuisine",
+			joinColumns = @JoinColumn(name = "cuisine_id"),
+			inverseJoinColumns = @JoinColumn(name = "recipe_id")
+	)
+	private List<Recipe> recipes = new ArrayList<>(); //TODO: change to HashSet then override hashCode() and equals()
 
 	public Cuisine() {
+	}
+
+	public Cuisine(String name) {
+		this.name = name;
 	}
 
 	public Integer getId() {
@@ -44,12 +60,11 @@ public class Cuisine implements Serializable {
 		this.name = name;
 	}
 
-	public List<RecipeCategory> getRecipeCategories() {
-		return this.recipeCategories;
+	public List<Recipe> getRecipes() {
+		return this.recipes;
 	}
 
-	public void setRecipeCategories(List<RecipeCategory> recipeCategories) {
-		this.recipeCategories = recipeCategories;
+	public void setRecipes(List<Recipe> recipes) {
+		this.recipes = recipes;
 	}
-
 }

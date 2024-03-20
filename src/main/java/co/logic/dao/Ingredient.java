@@ -3,6 +3,7 @@ package co.logic.dao;
 import java.io.Serializable;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -11,28 +12,30 @@ import java.util.List;
  * 
  */
 @Entity
-@Table(name="ingredient", schema="culinary_organizer")
+@Table(name="ingredient")
 public class Ingredient implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@SequenceGenerator(name="culinary_organizer.ingredient_id_seq",
+			sequenceName="culinary_organizer.ingredient_id_seq",
+			allocationSize=1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE,
+			generator="culinary_organizer.ingredient_id_seq")
 	private Integer id;
-
+	private String name;
+	private String description;
+	@Column(name = "calorific_value")
 	private Integer calorificValue;
 
-	private String description;
-
-	private String name;
-
-	//bidirectional many-to-one association to IngredientType
-	@ManyToOne
+	//bidirectional one-to-one association to IngredientType
+	@OneToOne
 	@JoinColumn(name="ingredient_type_id")
 	private IngredientType ingredientType;
 
-	//bi-directional many-to-one association to RecipeIngredient
+	//bi-directional one-to-many association to RecipeIngredient
 	@OneToMany(mappedBy="ingredient")
-	private List<RecipeIngredient> recipeIngredients;
+	private List<RecipeIngredient> recipeIngredients = new ArrayList<>();
 
 	public Ingredient() {
 	}

@@ -9,6 +9,8 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.Query;
 
+import org.hibernate.Session;
+
 /*import co.logic.core.dao.Cuisine;*/
 import co.logic.dao.Dietary;
 /*import co.logic.core.dao.DishType;
@@ -28,14 +30,15 @@ public class DatabaseManager {
 	    return result;
 	}*/
 	
-	public static Collection<Dietary> getAllDietaryTypes() {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("culinary-organizer");
-		EntityManager em = emf.createEntityManager();
+	public static Collection<Dietary> getAllDietaryTypes(Session session) {
+		//EntityManagerFactory emf = Persistence.createEntityManagerFactory("culinary-organizer");
+		//EntityManager em = emf.createEntityManager();
 		
-		Query query = em.createQuery("SELECT d FROM Dietary d");
+		//Query query = em.createQuery("SELECT d FROM Dietary d");
+		Query query = session.createQuery("SELECT d FROM Dietary d");
 		Collection<Dietary> result = (Collection<Dietary>) query.getResultList();
-		em.close();
-		emf.close();
+		//em.close();
+		//emf.close();
 	    return result;
 	}
 	

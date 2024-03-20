@@ -2,6 +2,8 @@ package co.logic.dao;
 
 import java.io.Serializable;
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -15,16 +17,29 @@ public class DishType implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@SequenceGenerator(name="culinary_organizer.dish_type_id_seq",
+			sequenceName="culinary_organizer.dish_type_id_seq",
+			allocationSize=1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE,
+			generator="culinary_organizer.dish_type_id_seq")
 	private Integer id;
 
 	private String name;
 
-	//bidirectional many-to-one association to RecipeCategory
-	@OneToMany(mappedBy="dishType")
-	private List<RecipeCategory> recipeCategories;
+	//bi-directional many-to-many association to recipe_dish_type join table
+	@ManyToMany(cascade = CascadeType.PERSIST)
+	@JoinTable(
+			name = "recipe_dish_type",
+			joinColumns = @JoinColumn(name = "dish_type_id"),
+			inverseJoinColumns = @JoinColumn(name = "recipe_id")
+	)
+	private List<Recipe> recipes = new ArrayList<>(); //TODO: change to HashSet then override hashCode() and equals()
 
 	public DishType() {
+	}
+
+	public DishType(String name){
+		this.name = name;
 	}
 
 	public Integer getId() {
@@ -43,12 +58,11 @@ public class DishType implements Serializable {
 		this.name = name;
 	}
 
-	public List<RecipeCategory> getRecipeCategories() {
-		return this.recipeCategories;
+	public List<Recipe> getRecipes() {
+		return this.recipes;
 	}
 
-	public void setRecipeCategories(List<RecipeCategory> recipeCategories) {
-		this.recipeCategories = recipeCategories;
+	public void setRecipes(List<Recipe> recipes) {
+		this.recipes = recipes;
 	}
-
 }

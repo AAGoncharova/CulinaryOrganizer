@@ -1,6 +1,7 @@
 package co.logic.dao;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.*;
@@ -21,20 +22,25 @@ public class Recipe implements Serializable {
 
 	private String name;
 
+	private String preparation;
+
 	private byte[] picture;
 
-	@ManyToMany
-	@JoinColumns({ ///TODO just trying it
-			@JoinColumn(
-					name = "recipe_id",
-					referencedColumnName = "id"),
-			@JoinColumn(
-					name = "ingredient_id",
-					referencedColumnName = "id")
-	})
-	private List<RecipeIngredient> recipeIngredients;
+	//bi-directional one-to-many association to RecipeIngredient
+	@OneToMany(mappedBy = "recipe")
+	private List<RecipeIngredient> recipeIngredients = new ArrayList<>();
 
-	private String preparation;
+	//bi-directional many-to-many association to Cuisine
+	@ManyToMany(mappedBy = "recipes")
+	private List<Cuisine> cuisines;
+
+	//bi-directional many-to-many association to DishType
+	@ManyToMany(mappedBy = "recipes")
+	private List<DishType> dishTypes;
+
+	//bi-directional many-to-many association to Dietary
+	@ManyToMany(mappedBy = "recipes")
+	private List<Dietary> dietaryList;
 
 	public Recipe() {
 	}
@@ -59,7 +65,7 @@ public class Recipe implements Serializable {
 		return this.picture;
 	}
 
-	public void setPicture(byte[] picture) {
+	public void setPicture(byte[] picture) { //TODO
 		this.picture = picture;
 	}
 
@@ -67,7 +73,7 @@ public class Recipe implements Serializable {
 		return this.recipeIngredients;
 	}
 	
-	public void getRecipeIngredients(List<RecipeIngredient> recipeIngredients) {
+	public void setRecipeIngredients(List<RecipeIngredient> recipeIngredients) {
 		this.recipeIngredients = recipeIngredients;
 	}
 	
@@ -79,4 +85,31 @@ public class Recipe implements Serializable {
 		this.preparation = preparation;
 	}
 
+	public List<Cuisine> getRecipeCuisineList() {
+		return this.cuisines;
+	}
+
+	public void setRecipeCuisineList(List<Cuisine> recipeCuisineList) {
+		this.cuisines = recipeCuisineList;
+	}
+
+	public List<DishType> getRecipeDishTypeList() {
+		return this.dishTypes;
+	}
+
+	public void setRecipeDishTypeList(List<DishType> recipeDishTypeList) {
+		this.dishTypes = recipeDishTypeList;
+	}
+
+	public List<Dietary> getRecipeDietaryList() {
+		return this.dietaryList;
+	}
+
+	public void setRecipeDietaryList(List<Dietary> recipeDietaryList) {
+		this.dietaryList = recipeDietaryList;
+	}
+
+	public void caclCalorificValue(){
+		//TODO: calculate from ingredients calorific values
+	}
 }
