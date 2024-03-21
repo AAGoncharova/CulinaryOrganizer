@@ -12,12 +12,17 @@ import jakarta.persistence.*;
  * 
  */
 @Entity
-@Table(name="recipe", schema="culinary_organizer")
+@Table(name="recipe")
 public class Recipe implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	//@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@SequenceGenerator(name="culinary_organizer.recipe_id_seq",
+			sequenceName="culinary_organizer.recipe_id_seq",
+			allocationSize=1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE,
+			generator="culinary_organizer.recipe_id_seq")
 	private Integer id;
 
 	private String name;

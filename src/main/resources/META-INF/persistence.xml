@@ -4,7 +4,7 @@
 	<persistence-unit name="culinary-organizer">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
-		<class>co.logic.dao.Dietary</class>
+		<class>co.co.dao.Dietary</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 
 	    <properties>

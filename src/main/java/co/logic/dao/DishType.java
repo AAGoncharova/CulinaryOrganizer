@@ -12,7 +12,7 @@ import java.util.List;
  * 
  */
 @Entity
-@Table(name="dish_type", schema="culinary_organizer")
+@Table(name="dish_type")
 public class DishType implements Serializable {
 	private static final long serialVersionUID = 1L;
 
