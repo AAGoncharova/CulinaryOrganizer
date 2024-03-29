@@ -18,6 +18,7 @@ import javax.swing.plaf.ColorUIResource;
 //import org.apache.commons.io.IOUtils;
 
 import co.gui.listeners.RemoveIngredientActionListener;
+import co.logic.constants.IconPathConstant;
 
 public class MinusButton extends JButton {
 
@@ -27,11 +28,10 @@ public class MinusButton extends JButton {
 	}
 
 	private void setGraphicalProperties() {
-		//InputStream input = getClass().getResourceAsStream("./src/main/resources/icons/minus.png");
 		InputStream input;
 		ImageIcon ic;
 		try {
-			input = new FileInputStream("./src/main/resources/icons/new_recipe.png");
+			input = new FileInputStream(IconPathConstant.MINUS_ICON_PATH);
 			ic = new ImageIcon(ImageIO.read(input));
 			super.setIcon(ic);
 			

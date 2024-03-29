@@ -23,6 +23,7 @@ import javax.swing.border.EmptyBorder;
 //import org.apache.commons.io.IOUtils;
 
 import co.gui.listeners.PanelClickMouseListener;
+import co.logic.constants.IconPathConstant;
 
 public class StartForm extends JFrame {
 
@@ -71,14 +72,13 @@ public class StartForm extends JFrame {
 		ImageIcon icon3 = new ImageIcon();
 		ImageIcon icon4 = new ImageIcon();
 		try {
-			//image = ImageIO.read(new FileInputStream("/home/salamander/MyProjects/culinary-organizer/src/main/resources/icons/new_recipe.png"));//ImageIO.read(getClass().getResource("/res/new_recipe.png"));
-			image = ImageIO.read(new FileInputStream("./src/main/resources/icons/new_recipe.png"));//ImageIO.read(getClass().getResource("/res/new_recipe.png"));
-			icon1.setImage(image);// = new ImageIcon(image);
-			image = ImageIO.read(new FileInputStream("./src/main/resources/icons/select_recipe.png"));//ImageIO.read(getClass().getResource("/res/new_recipe.png"));
+			image = ImageIO.read(new FileInputStream(IconPathConstant.NEW_RECIPE_START_FORM_ICON_PATH));
+			icon1.setImage(image);
+			image = ImageIO.read(new FileInputStream(IconPathConstant.SELECT_RECIPE_START_FORM_ICON_PATH));
 			icon2.setImage(image);
-			image = ImageIO.read(new FileInputStream("./src/main/resources/icons/create_menu.png"));//ImageIO.read(getClass().getResource("/res/new_recipe.png"));
+			image = ImageIO.read(new FileInputStream(IconPathConstant.CREATE_MENU_START_FORM_ICON_PATH));
 			icon3.setImage(image);
-			image = ImageIO.read(new FileInputStream("./src/main/resources/icons/all_recipes.png"));//ImageIO.read(getClass().getResource("/res/new_recipe.png"));
+			image = ImageIO.read(new FileInputStream(IconPathConstant.ALL_RECIPES_START_FORM_ICON_PATH));
 			icon4.setImage(image);
 		} catch (IOException e2) {
 			// TODO Auto-generated catch block
