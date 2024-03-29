@@ -34,7 +34,7 @@ public class Main {
         //String name = sfi.getProperties(). Settings().getDefaultSchemaName();
 
         Session s = HibernateUtil.getSessionFactory().openSession();
-        s.beginTransaction();
+        //s.beginTransaction(); !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
 
         /*Query query = s.createQuery("from IngredientType where name = :typeName");
         query.setParameter("typeName", "мясо");
@@ -95,8 +95,8 @@ public class Main {
         ingredient.setDescription("description");
         ingredient.setIngredientType(ingredientType);
 
-        s.persist(recipe);
-        s.persist(ingredient);
+        //s.persist(recipe); !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //s.persist(ingredient); !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         RecipeIngredient ri = new RecipeIngredient(500, "gr", recipe, ingredient);
 
@@ -130,7 +130,8 @@ public class Main {
         s.persist(c);
         s.persist(d);
         s.persist(dt);*/
-        s.persist(ri);
+
+        //s.persist(ri); !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         //System.out.println("Persist: New ingredient name = " + ingredientType.getName() + ", id = " + ingredientType.getId());
 
@@ -140,7 +141,7 @@ public class Main {
         //s.flush();
         //System.out.println("Flush: New ingredient name = " + ingredientType.getName() + ", id = " + ingredientType.getId());
 
-        s.getTransaction().commit();
+        //s.getTransaction().commit(); !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         //System.out.println("Commit: New ingredient name = " + ingredientType.getName() + ", id = " + ingredientType.getId());
 
         s.close();
@@ -199,10 +200,11 @@ public class Main {
 		i2.setDecrption("dec_new");
 		System.out.println("Update: id: " + String.valueOf(i2.getId()) + ", decription: " + i2.getDescription());*/
 
-        String str;
+        //String str;
 
 
 
         ////////////////emf.close();
+        HibernateUtil.shutdown();
     }
 }
