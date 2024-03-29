@@ -7,4 +7,5 @@ public class IconPathConstant {
     public static String ALL_RECIPES_START_FORM_ICON_PATH = "./src/main/resources/icons/all_recipes.png";
 
     public static String MINUS_ICON_PATH = "./src/main/resources/icons/minus.png";
+    public static String PLUS_ICON_PATH = "./src/main/resources/icons/plus.png";
 }

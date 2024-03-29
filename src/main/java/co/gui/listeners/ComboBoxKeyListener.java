@@ -1,12 +1,7 @@
 package co.gui.listeners;
 
-import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
-import javax.swing.Box;
-import javax.swing.JButton;
-import javax.swing.JPanel;
 
 import co.gui.IngredientPanel;
 import co.gui.MinusButton;
@@ -38,7 +33,7 @@ public class ComboBoxKeyListener implements KeyListener{
 	@Override
 	public void keyTyped(KeyEvent arg0) {
 		if(!isAlreadyAdded) {
-			parentPanel.addRecipePanel();
+			parentPanel.addIngredientPanel();
 			minusButton.setVisible(true);
 			isAlreadyAdded = true;
 		}

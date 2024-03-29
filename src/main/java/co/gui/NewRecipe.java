@@ -361,8 +361,9 @@ public class NewRecipe extends JFrame {
 	}
 	
 	private void initCuisineType() {
-		Collection<Cuisine> cuisineList = DatabaseManager.getAllCuisineTypes();
-		cuisine.insertItemAt(Constants.DefaultComboboxItem,0);
+		//Collection<Cuisine> cuisineList = DatabaseManager.getAllCuisineTypes();
+		Collection<Cuisine> cuisineList = DatabaseManager.getAllElementsOfTypeFromDB(Cuisine.class);
+		cuisine.insertItemAt(Constants.DefaultComboBoxItem,0);
 		for(Cuisine cuisineName : cuisineList) {
 			cuisine.addItem(cuisineName.getName());
 		}
@@ -370,8 +371,9 @@ public class NewRecipe extends JFrame {
 	}
 	
 	private void initDishType() {
-		Collection<DishType> dishTypeList = DatabaseManager.getAllDishTypes();
-		dishType.insertItemAt(Constants.DefaultComboboxItem,0);
+		//Collection<DishType> dishTypeList = DatabaseManager.getAllDishTypes();
+		Collection<DishType> dishTypeList = DatabaseManager.getAllElementsOfTypeFromDB(DishType.class);
+		dishType.insertItemAt(Constants.DefaultComboBoxItem,0);
 		for(DishType dishTypeName : dishTypeList) {
 			dishType.addItem(dishTypeName.getName());
 		}
@@ -379,8 +381,8 @@ public class NewRecipe extends JFrame {
 	}
 	
 	private void initIngredientType() {
-		Collection<IngredientType> ingredientsTypeList = DatabaseManager.getAllIngredientTypes();
-		ingredientsType.insertItemAt(Constants.DefaultComboboxItem,0);
+		Collection<IngredientType> ingredientsTypeList = DatabaseManager.getAllElementsOfTypeFromDB(IngredientType.class);
+		ingredientsType.insertItemAt(Constants.DefaultComboBoxItem,0);
 		for(IngredientType ingredientsTypeName : ingredientsTypeList) {
 			ingredientsType.addItem(ingredientsTypeName.getName());
 		}
@@ -388,8 +390,9 @@ public class NewRecipe extends JFrame {
 	}
 	
 	private void initDietaryList() {
-		Collection<Dietary> dietaryList = DatabaseManager.getAllDietaryTypes(/*HibernateUtil.getSessionFactory().openSession()*/);
-		dietary.insertItemAt(Constants.DefaultComboboxItem,0);
+		//Collection<Dietary> dietaryList = DatabaseManager.getAllDietaryTypes(/*HibernateUtil.getSessionFactory().openSession()*/);
+		Collection<Dietary> dietaryList = DatabaseManager.getAllElementsOfTypeFromDB(Dietary.class);
+		dietary.insertItemAt(Constants.DefaultComboBoxItem,0);
 		for(Dietary dietaryName : dietaryList) {
 			dietary.addItem(dietaryName.getName());
 		}
@@ -408,19 +411,19 @@ public class NewRecipe extends JFrame {
 			preparation.setBorder(BorderFactory.createLineBorder(Color.red));
 			isComplete = false;
 		}
-		if(cuisine.getSelectedItem() == "" || cuisine.getSelectedItem() == Constants.DefaultComboboxItem) {
+		if(cuisine.getSelectedItem() == "" || cuisine.getSelectedItem() == Constants.DefaultComboBoxItem) {
 			cuisine.setBorder(BorderFactory.createLineBorder(Color.red));
 			isComplete = false;
 		}
-		if(dishType.getSelectedItem() == "" || dishType.getSelectedItem() == Constants.DefaultComboboxItem) {
+		if(dishType.getSelectedItem() == "" || dishType.getSelectedItem() == Constants.DefaultComboBoxItem) {
 			dishType.setBorder(BorderFactory.createLineBorder(Color.red));
 			isComplete = false;
 		}
-		if(ingredientsType.getSelectedItem() == "" || ingredientsType.getSelectedItem() == Constants.DefaultComboboxItem) {
+		if(ingredientsType.getSelectedItem() == "" || ingredientsType.getSelectedItem() == Constants.DefaultComboBoxItem) {
 			ingredientsType.setBorder(BorderFactory.createLineBorder(Color.red));
 			isComplete = false;
 		}
-		if(dietary.getSelectedItem() == "" || dietary.getSelectedItem() == Constants.DefaultComboboxItem) {
+		if(dietary.getSelectedItem() == "" || dietary.getSelectedItem() == Constants.DefaultComboBoxItem) {
 			dietary.setBorder(BorderFactory.createLineBorder(Color.red));
 			isComplete = false;
 		}

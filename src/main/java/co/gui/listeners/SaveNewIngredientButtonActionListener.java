@@ -3,11 +3,8 @@ package co.gui.listeners;
 import co.logic.DatabaseManager;
 import co.logic.dao.Ingredient;
 import co.logic.dao.IngredientType;
-import co.utilities.HibernateUtil;
-import org.hibernate.Session;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -34,7 +31,7 @@ public class SaveNewIngredientButtonActionListener implements ActionListener {
     }
 
     private void saveNewIngredient(){
-        IngredientType ingType = DatabaseManager.getIngredientTypeByName((String)_ingredientType.getEditor().getItem());
+        IngredientType ingType = DatabaseManager.getObjectByName((String)_ingredientType.getEditor().getItem(), IngredientType.class);
 
         Ingredient ingredient = new Ingredient();
         ingredient.setName(_ingredientName.getText());
@@ -44,6 +41,6 @@ public class SaveNewIngredientButtonActionListener implements ActionListener {
             ingredient.setCalorificValue(Integer.parseInt(_calorificValue.getText()));
         ingredient.setIngredientType(ingType);
 
-        DatabaseManager.saveNewIngredient(ingredient);
+        DatabaseManager.saveObjectToDB(ingredient);
     }
 }

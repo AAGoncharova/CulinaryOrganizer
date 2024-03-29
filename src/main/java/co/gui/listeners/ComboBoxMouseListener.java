@@ -31,7 +31,7 @@ public class ComboBoxMouseListener implements MouseListener {
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		if(comboBox.getSelectedItem() == Constants.DefaultIngredientComboboxItem || comboBox.getSelectedItem() == Constants.DefaultComboboxItem)
+		if(comboBox.getSelectedItem() == Constants.DefaultIngredientComboBoxItem || comboBox.getSelectedItem() == Constants.DefaultComboBoxItem)
 			comboBox.setSelectedItem("");
 	}
 

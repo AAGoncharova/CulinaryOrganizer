@@ -1,6 +1,5 @@
 package co.gui;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.util.Collection;
 
@@ -18,11 +17,7 @@ import javax.swing.border.EmptyBorder;
 
 import co.gui.listeners.SaveNewIngredientButtonActionListener;
 import co.logic.DatabaseManager;
-import co.logic.dao.Ingredient;
 import co.logic.dao.IngredientType;
-import co.logic.dao.Recipe;
-import co.gui.listeners.LoadRecipeImageButtonActionListener;
-import co.gui.listeners.SaveNewRecipeActionListener;
 
 public class NewIngredientFrame extends JFrame {
 
@@ -77,7 +72,7 @@ public class NewIngredientFrame extends JFrame {
 		calorificValue.setMaximumSize(new Dimension(Short.MAX_VALUE,calorificValue.getPreferredSize().height));
 		calorificValue.setPreferredSize(new Dimension(Short.MAX_VALUE, calorificValue.getPreferredSize().height));
 		
-		ingredientType.setPrototypeDisplayValue(co.gui.Constants.DefaultComboboxItem);
+		ingredientType.setPrototypeDisplayValue(co.gui.Constants.DefaultComboBoxItem);
 		ingredientType.setMaximumSize(ingredientType.getPreferredSize());
 
 		save.addActionListener(new SaveNewIngredientButtonActionListener(this, ingredientNameString, ingredientDescription, calorificValue, ingredientType));
@@ -188,8 +183,9 @@ public class NewIngredientFrame extends JFrame {
 	}
 
 	private void initIngredientType(JComboBox ingredientsType) { //TODO: remove duplicate code, same method in NewRecipe
-		Collection<IngredientType> ingredientsTypeList = DatabaseManager.getAllIngredientTypes();
-		ingredientsType.insertItemAt(Constants.DefaultComboboxItem,0);
+		//Collection<IngredientType> ingredientsTypeList = DatabaseManager.getAllIngredientTypes();
+		Collection<IngredientType> ingredientsTypeList = DatabaseManager.getAllElementsOfTypeFromDB(IngredientType.class);
+		ingredientsType.insertItemAt(Constants.DefaultComboBoxItem,0);
 		for(IngredientType ingredientsTypeName : ingredientsTypeList) {
 			ingredientsType.addItem(ingredientsTypeName.getName());
 		}

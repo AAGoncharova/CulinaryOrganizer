@@ -1,8 +1,6 @@
 package co.gui;
 
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -11,16 +9,11 @@ import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.text.JTextComponent;
 
+import co.gui.listeners.*;
 import co.logic.dao.Ingredient;
 import co.logic.dao.Recipe;
 import co.logic.dao.RecipeIngredient;
-import co.gui.listeners.ComboBoxKeyListener;
-import co.gui.listeners.ComboBoxMouseListener;
-import co.gui.listeners.IngredientComboBoxFocusListener;
-import co.gui.listeners.MinusButtonVisibilityListener;
-import co.gui.listeners.RemoveIngredientActionListener;
 import co.logic.DatabaseManager;
 
 public class IngredientPanel extends JPanel{
@@ -29,25 +22,27 @@ public class IngredientPanel extends JPanel{
 	
 	IngredientPanel() {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		addRecipePanel();
+		addIngredientPanel();
 	}
 	
 	private void initIngredients(JComboBox<String> ingredientName) {
-		ingredientList = DatabaseManager.getAllIngredients();
+		//ingredientList = DatabaseManager.getAllIngredients();
+		ingredientList = DatabaseManager.getAllElementsOfTypeFromDB(Ingredient.class);
 		//ingredientName.insertItemAt(Constants.DefaultComboboxItem,0);
 		for(Ingredient ingredient : ingredientList) {
 			ingredientName.addItem(ingredient.getName());
 		}
 		//ingredientName.setSelectedIndex(0);
-		ingredientName.setSelectedItem(co.gui.Constants.DefaultIngredientComboboxItem);
+		ingredientName.setSelectedItem(co.gui.Constants.DefaultIngredientComboBoxItem);
 	}
 	
-	public void addRecipePanel() {
+	public void addIngredientPanel() {
 		JPanel ingredientPanel = new JPanel();
 		JComboBox<String> ingredientName = new JComboBox<String>();
 		JTextField ingredientAmount = new JTextField(9);
 		JTextField unitOfMeasurement = new JTextField(4);
 		MinusButton minusButton = new MinusButton(this);
+		PlusButton plusButton = new PlusButton(this);
 		
 		ingredientName.setPrototypeDisplayValue(comboBoxPrototypeString);
 		ingredientName.setMaximumSize(new Dimension(Short.MAX_VALUE, ingredientName.getPreferredSize().height));
@@ -65,7 +60,9 @@ public class IngredientPanel extends JPanel{
 		ingredientName.getEditor().getEditorComponent().addMouseListener(new ComboBoxMouseListener(ingredientName));
 		ingredientName.getEditor().getEditorComponent().addFocusListener(new IngredientComboBoxFocusListener(ingredientName));
 		ingredientName.getEditor().getEditorComponent().addKeyListener(new ComboBoxKeyListener(this, minusButton));
-		
+		//ingredientName.addItemListener(new ComboBoxActionListener(this, minusButton));
+
+		//TODO add plust button action listener
 		minusButton.addActionListener(new RemoveIngredientActionListener(this, minusButton));
 		minusButton.addComponentListener(new MinusButtonVisibilityListener(ingredientPanel,minusButton, minusButton.getPreferredSize().width));
 		//minusButton.setVisible(false);
@@ -95,7 +92,7 @@ public class IngredientPanel extends JPanel{
 			if(getComponent(i).getClass().getName().equals(JPanel.class)) {
 				JPanel panel = (JPanel) getComponent(i);
 				String ingredientName = (String)((JComboBox<String>)panel.getComponent(0)).getSelectedItem();
-				if(!ingredientName.equals(co.gui.Constants.DefaultIngredientComboboxItem)) {
+				if(!ingredientName.equals(co.gui.Constants.DefaultIngredientComboBoxItem)) {
 					RecipeIngredient ingredient = new RecipeIngredient();
 					ingredient.setRecipe(recipe);
 					ingredient.setIngredient(findIngredientByName(ingredientName));

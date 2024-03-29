@@ -26,9 +26,9 @@ public class IngredientComboBoxFocusListener implements FocusListener {
 	@Override
 	public void focusLost(FocusEvent arg0) {
 		if(comboBox.getSelectedItem() == "")
-			comboBox.setSelectedItem(Constants.DefaultIngredientComboboxItem);
+			comboBox.setSelectedItem(Constants.DefaultIngredientComboBoxItem);
 		else {
-			if(!ingredientExist(comboBox.getEditor().getItem().toString()) && !comboBox.getEditor().getItem().toString().equals(Constants.DefaultIngredientComboboxItem)) {
+			if(!ingredientExist(comboBox.getEditor().getItem().toString()) && !comboBox.getEditor().getItem().toString().equals(Constants.DefaultIngredientComboBoxItem)) {
 				int selection = JOptionPane.showConfirmDialog(comboBox.getParent(), "Ингредиент " + (String)comboBox.getEditor().getItem() + " отсутствует в базе данных." +
 						"Он будет добавлен после сохранения рецепта. " +
 						"Хотите перейти к форме создания нового ингредиента " +
