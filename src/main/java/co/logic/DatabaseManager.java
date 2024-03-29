@@ -96,4 +96,12 @@ public class DatabaseManager {
 		s.close();
 		return result;
 	}
+
+	public static void saveNewIngredient(Ingredient ingredient){
+		Session s = HibernateUtil.getSessionFactory().openSession();
+		s.beginTransaction();
+		s.persist(ingredient);
+		s.getTransaction().commit();
+		s.close();
+	}
 }

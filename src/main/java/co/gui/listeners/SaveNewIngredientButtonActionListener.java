@@ -44,11 +44,6 @@ public class SaveNewIngredientButtonActionListener implements ActionListener {
             ingredient.setCalorificValue(Integer.parseInt(_calorificValue.getText()));
         ingredient.setIngredientType(ingType);
 
-        Session s = HibernateUtil.getSessionFactory().openSession();
-        s.beginTransaction();
-        //s.persist(ingType);
-        s.persist(ingredient);
-        s.getTransaction().commit();
-        s.close();
+        DatabaseManager.saveNewIngredient(ingredient);
     }
 }
